@@ -354,8 +354,10 @@ def insert_enquiry(name,email,phone,message,subject=None):
 	except Exception:
 		frappe.log_error(frappe.get_traceback(), "api.insert_enquiry")
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def insert_doc(doc):
+	# Generic read/write of any doctype: System Managers only.
+	frappe.only_for("System Manager")
 	try:
 		from six import string_types
 		if isinstance(doc, string_types):
@@ -372,8 +374,10 @@ def insert_doc(doc):
 	except Exception:
 		frappe.log_error(frappe.get_traceback(), "api.insert_doc")
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def update_sections_doc_json(docs,ref_doc=None,ref_name=None):
+	# Generic read/write of any doctype: System Managers only.
+	frappe.only_for("System Manager")
 	try:
 		if docs:
 			update_doc = frappe.get_doc(ref_doc, ref_name)
@@ -383,8 +387,10 @@ def update_sections_doc_json(docs,ref_doc=None,ref_name=None):
 	except Exception:
 		frappe.log_error(frappe.get_traceback(), "api.bulk_update_doc")
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def bulk_update_doc(docs,ref_doc=None,ref_name=None):
+	# Generic read/write of any doctype: System Managers only.
+	frappe.only_for("System Manager")
 	try:
 		if docs:
 			if isinstance(docs, string_types):
@@ -397,8 +403,10 @@ def bulk_update_doc(docs,ref_doc=None,ref_name=None):
 	except Exception:
 		frappe.log_error(frappe.get_traceback(), "api.bulk_update_doc")
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def update_doc(doc):
+	# Generic read/write of any doctype: System Managers only.
+	frappe.only_for("System Manager")
 	try:
 		from six import string_types
 		if isinstance(doc, string_types):
@@ -608,8 +616,10 @@ def save_as_template(template, section, custom_css=None):
 	doc.save(ignore_permissions=True)
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def get_doc_list(doctype, fields=None, filters=None, order_by=None, limit_start=None, limit_page_length=10, parent=None):
+	# Generic read/write of any doctype: System Managers only.
+	frappe.only_for("System Manager")
 	'''Returns a list of records by filters, fields, ordering and limit
 
 	:param doctype: DocType of the data to be queried

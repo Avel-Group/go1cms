@@ -2346,8 +2346,10 @@ def get_linked_docs(doctype, txt, searchfield, start, page_len, filters):
 def get_linked_fields(document):
 	linked_docs = frappe.db.sql(""" SELECT options,fieldname FROM `tabDocField` WHERE parent=%(dt)s AND fieldtype='Link' """,{"dt":document},as_dict=1)
 	return linked_docs
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def update_doc(doc):
+	# Generic read/write of any doctype: System Managers only.
+	frappe.only_for("System Manager")
 	try:
 		from six import string_types
 		if isinstance(doc, string_types):
