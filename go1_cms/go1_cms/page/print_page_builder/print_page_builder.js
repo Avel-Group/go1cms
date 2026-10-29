@@ -59,9 +59,7 @@ frappe.PrintPageBuilder = class PrintPageBuilder {
 	async get_sections() {
 		console.log(origin)
 		await frappe.call({
-			method: '',
-			type: "post",
-			url: "http://45.140.185.144:8004/api/method/ecommerce_business_store.cms.doctype.web_page_builder.web_page_builder.get_section_templates",
+			method: "go1_cms.go1_cms.doctype.web_page_builder.web_page_builder.get_section_templates",
 			args: {
 				device_type: "Web",
 			},
